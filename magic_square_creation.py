@@ -6,15 +6,7 @@ from itertools import combinations, permutations
 def is_magic(s, m, n):
     # Return the probability equal to 1 if the sum of all rows, cols, and diags is equal to m. Otherwise probability is less than 1
 
-    return sum([[sum(s[:3]), sum(s[:7:3]), sum(s[:9:4])].count(m) / 3,
-                [sum(s[:3]), sum(s[1:8:3])].count(m) / 2,
-                [sum(s[:3]), sum(s[2:9:3]), sum(s[2:7:2])].count(m) / 3,
-                [sum(s[3:6]), sum(s[:7:3])].count(m) / 2,
-                [sum(s[3:6]), sum(s[1:8:3]), sum(s[:9:4]), sum(s[2:7:2])].count(m) / 4,
-                [sum(s[3:6]), sum(s[2:9:3])].count(m) / 2,
-                [sum(s[6:9]), sum(s[:7:3]), sum(s[2:7:2])].count(m) / 3,
-                [sum(s[6:9]), sum(s[1:8:3])].count(m) / 2,
-                [sum(s[6:9]), sum(s[2:9:3]), sum(s[:9:4])].count(m) / 3]) / n
+    return [sum(s[:3]), sum(s[3:6]), sum(s[6:9]), sum(s[:7:3]), sum(s[1:8:3]), sum(s[2:9:3]), sum(s[:9:4]),  sum(s[2:7:2])].count(m)/(2*math.sqrt(n) + 2)
 
 
 def get_sets_in_magic(m, n, len_group):
@@ -26,7 +18,7 @@ def get_sets_in_magic(m, n, len_group):
     for i in range(n):
         n_involved_sums[i + 1] = sum([1 for t in comb if i + 1 in t])
 
-    # Note there 8 sums to get M in a magic square of 15 elements:
+    # Note there 8 sums to get M in a magic square of 9 elements:
     # 3 rows, 3 cols, and 2 diags.
     # The center element is involved in 4 sums
     # The corners elements are involved in 3 sums
